@@ -5,10 +5,102 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoviePop</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
     <h1>MoviePop</h1>
 
     <p>This app will allow users to search for popular movies and add their top movies. This app will also allow users to search movies by genre, actor, director etc </p>
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Request</th>
+            <th scope="col">URL</th>
+            <th scope="col">HTTP Method</th>
+            <th scope="col">Request Body Data Format</th>
+            <th scope="col">Response Body Data  Format</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>list all movies</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A JSON object holding data about all the movies</td>
+          </tr>
+          <tr>
+            <td>Get data about a single movie by title</td>
+            <td>/movies/:title</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A JSON object holding data about single a movie containing description, genre, director, image URL, whether its featured or not</td>
+          </tr>
+          <tr>
+            <td>Get data about a genre (description) by name/title (e.g. "Action/Adventure")</td>
+            <td>/movies/:genre_name</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A JSON object holding data about a genre</td>
+          </tr>
+          <tr>
+            <td>Get data about a single a dicector (bio, date of birth, death year) by name</td>
+            <td>/movies/:director_name</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A JSON object holding data about a director</td>
+          </tr>
+          <tr>
+            <td>Add a new user</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>A JSON object holding the user information. <br>
+                "user_name": "JaneDoe123",<br>
+                "email": "JaneDoe123@mail.com",<br>
+                "password": "123456!",<br>
+                "date of birth": "01.01.1990"<br</td>
+            <td>A success message indicating that the profile was created</td>
+          </tr>
+          <tr>
+            <td>Update a users information (username)</td>
+            <td>/users/:id</td>
+            <td>PUT</td>
+            <td>none</td>
+            <td>A success message indicating that the profile was updated</td>
+          </tr>
+          <tr>
+            <td>Allow users to add movies to their list of favorites</td>
+            <td>/users/:id/:movieTitle</td>
+            <td>POST</td>
+            <td>A JSON object holding data about the movie to add</td>
+            <td>A success message indicating that the movie was added</td>
+          </tr>
+          <tr>
+            <td>Allow users to remove a movie from their list of favorites </td>
+            <td>/users/:id/:movieTitle</td>
+            <td>DELETE</td>
+            <td>none</td>
+            <td>A success message indicating that the movie was removed</td>
+          </tr>
+          <tr>
+            <td>Allow users to deregister</td>
+            <td>/users/:id</td>
+            <td>DELETE</td>
+            <td>none</td>
+            <td>A success message indicating that the user has been removed </td>
+          </tr>
+          <!-- <tr>
+            <td>Get data about a single movie by title</td>
+            <td>/movies/:title</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>A JSON object holding data about</td>
+          </tr> -->
+        </tbody>
+      </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
