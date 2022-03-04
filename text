@@ -1,0 +1,84 @@
+let Movie10 = {
+    Title: "2 Guns",
+    Description: "For the past year, DEA agent Bobby Trench (Denzel Washington) and U.S. Navy intelligence officer Marcus Stigman (Mark Wahlberg) have been working under cover as members of a narcotics syndicate. The twist: Neither man knows that the other is an undercover agent. When their attempt to infiltrate a Mexican drug cartel and recover millions goes haywire, the men are disavowed by their superiors. Trench and Stigman must go on the run lest they wind up in jail or in a grave.",
+    GenreID: [],
+    DirectorID: [],
+    ImagePath: "https://flxt.tmsimg.com/assets/p9253979_v_v10_az.jpg",
+    Featured: false
+  }
+db.v1movies.insertOne(Movie10)
+
+
+let User5 = {
+    Username: "Jack Sparrow",
+    Birthday: new Date("1860-02-10"),
+    FavoriteMovies: []
+  }
+db.users.insertOne(User5)
+
+
+let Genre6 = {
+    Name: "Action",
+    Description: "Should contain numerous scenes where action is spectacular and usually destructive. Often includes non-stop motion, high energy physical stunts, chases, battles, and destructive crises (floods, explosions, natural disasters, fires, etc.) Note: if a movie contains just one action scene (even if prolonged, i.e. airplane-accident) it does not qualify. Subjective.",
+  }
+db.genre.insertOne(Genre6)
+
+
+let Director9 = {
+    Name: "Robert Zemeckis",
+    Bio: "Filmmaker Robert Zemeckis created popular fare, frequently using the latest technology, that left an indelible mark on the entertainment industry.",
+    Birthplace: "Chicago, Illinois, USA"
+  }
+db.directors.insertOne(Director9)
+
+db.movies.findOne( { Title: "Grand Budapest Hotel" } )
+
+db.users.find().pretty()
+
+db.movies.findOne( { _id: ObjectId("621e8e1db8018dd1d52ea346") })
+
+
+// lor fotr
+// genre
+db.v1movies.update(
+  { _id: ObjectId("621e992fb8018dd1d52ea354") },
+  { $push: { GenreID: ObjectId("621e7fbeb8018dd1d52ea337") } }
+)
+// director
+db.v1movies.update(
+  { _id: ObjectId("621e992fb8018dd1d52ea354") },
+  { $push: { DirectorID: ObjectId("621e8586b8018dd1d52ea344") } }
+)
+
+
+db.users.findOne( { _id: ObjectId("621e92c1b8018dd1d52ea347") })
+
+db.movies.findOne({ _id: ObjectId("62213ce80483ac9adaa6751f" })
+
+db.movies.findOne({ "Genre.Name": "War", "Director.Name": "Ridley Scott" })
+
+db.movies.update(
+  { _id: ObjectId("62213ce80483ac9adaa6751f") },
+  { $set: { ImagePath: "https://resizing.flixster.com/vrrHIh0u9hLunPkFiPOTfcuEp7A=/ems.ZW1zLXByZC1hc3NldHMvbW92aWVzL2VlYjJiYjBmLWMzMTgtNDBlMC1hZmQ3LTQ2ZTZlNmRlYjk3OS53ZWJw" } }
+)
+
+
+db.users.update(
+  { Username: "Jimbo James" },
+  { $push: { FavoriteMovies: ObjectId("62213c5d0483ac9adaa6751c") } }
+)
+
+
+db.users.findOne({ "Username": "Jimbo James" })
+
+db.users.deleteOne({ "Username": "Michael Jordan" })
+
+mongoexport -d test -c users -o users.json
+
+db.users.find().pretty()
+
+db.movies.drop()
+
+db.movies.findOne({“Genre.Name”: "War", “Director.Name”: "Ridley Scott"})
+
+mongoexport -d test -c movies -o moviesdb.json
