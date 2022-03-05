@@ -1,23 +1,26 @@
-const express = require('express'),
-    morgan = require('morgan'),
+const express = require('express');
+const app = express();
+
+const morgan = require('morgan'),
     bodyParser = require('body-parser'),
     uuid = require('uuid');
-const mongoose = require('mongoose');
-const Models = require('./models.js')
 
-const Movies = Models.Movie;
-const Users = Models.User;
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+const mongoose = require('mongoose'),
+    Models = require('./models.js'),
+    Movies = Models.Movie;
+    Users = Models.User;
+
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
 
 mongoose.connect('mongodb://localhost:27017/test', { 
     useNewUrlParser: true, useUnifiedTopology: true });
 
-
-const app = express();
-
-
-
-app.use(bodyParser.json());
 app.use(morgan('common'));
 app.use(express.static('public'));
 
@@ -175,7 +178,7 @@ app.get('/', (req, res) => {
 // Create a movie and add it to the Movies Collection
 
 
-app.post('/movies', (req, res) => {
+app.post('/movies',  (req, res) => {
     Movies.findOne({ Title: req.body.Title })
       .then((movie) => {
         if (movie) {
@@ -226,7 +229,7 @@ app.put('/movies/:Title', (req, res) => {
 // View all movies in the Movies Collection
 
 
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.find()
       .then((movies) => {
         res.status(201).json(movies);

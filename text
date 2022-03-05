@@ -75,7 +75,7 @@ db.users.deleteOne({ "Username": "Michael Jordan" })
 
 mongoexport -d test -c users -o users.json
 
-db.users.find().pretty()
+db.movies.find().pretty()
 
 db.movies.drop()
 
