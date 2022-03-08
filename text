@@ -90,4 +90,6 @@ mongoimport --uri mongodb+srv://mind28:Black-Mamba24@movie-app.xixo1.mongodb.net
 
 mongo "mongodb+srv://movie-app.xixo1.mongodb.net/movie-app" --username mind28
 
+mongodb+srv://mind28:Black-Mamba24@movie-app.xixo1.mongodb.net/movie-app?retryWrites=true&w=majority
+
 
