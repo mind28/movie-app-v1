@@ -82,3 +82,12 @@ db.movies.drop()
 db.movies.findOne({“Genre.Name”: "War", “Director.Name”: "Ridley Scott"})
 
 mongoexport -d test -c movies -o moviesdb.json
+
+heroku apps:rename movie-app-2828 --app aqueous-escarpment-96831
+
+
+mongoimport --uri mongodb+srv://mind28:Black-Mamba24@movie-app.xixo1.mongodb.net/movie-app --collection movies --type json --file ../movie-app/usersdb.json
+
+mongo "mongodb+srv://movie-app.xixo1.mongodb.net/movie-app" --username mind28
+
+

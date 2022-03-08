@@ -1,0 +1,6 @@
+{"_id":{"$oid":"621e92c1b8018dd1d52ea347"},"Username":"Jimbo James","Password":"jimbo1","Email":"jimbo@mail.com","Birthday":{"$date":"1985-02-19T00:00:00Z"},"FavoriteMovies":[{"$oid":"621e992fb8018dd1d52ea354"},{"$oid":"62213c5d0483ac9adaa6751c"}]}
+{"_id":{"$oid":"621e93dbb8018dd1d52ea348"},"Username":"Tim Thomas","Birthday":{"$date":"1988-02-10T00:00:00Z"},"FavoriteMovies":[]}
+{"_id":{"$oid":"621fe06966b3f195ff58d647"},"Username":"Freddy","Password":"feddy1","Email":"freddy@mail.com","Birthday":{"$date":"1995-12-21T00:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6223ee403f05f4894a6f53af"},"Username":"Mike Morand","Password":"abc123XYZ","Email":"mikemor@mail.com","Birthday":{"$date":"1985-02-19T00:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6223f4420c48b0c8b79e3b55"},"Username":"test user","Password":"abc123XYZ","Email":"mikemorand@mail.com","Birthday":{"$date":"1985-02-19T00:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6226689fe3dee94aaa47c7db"},"Username":"testauth","Password":"$2b$10$JBNy04E4Btds.6uykRR/P.4whRfK12ISlvD8anQdTzLJuw3FRcx6C","Email":"mikemorand@mail.com","Birthday":{"$date":"1985-02-19T00:00:00Z"},"FavoriteMovies":[],"__v":0}
