@@ -103,7 +103,7 @@ app.get('/users', (req, res) => {
   // Get a user by username
 
 
-app.get('/users/:Username', (req, res) => {
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOne({ Username: req.params.Username })
       .then((user) => {
         res.json(user);
@@ -118,7 +118,7 @@ app.get('/users/:Username', (req, res) => {
 // update user
 
 
-app.put('/users/:Username', 
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
 // Validation logic
 [
   check('Username', 'Username is required (min 3 characters).').isLength({min: 5}),
@@ -164,7 +164,7 @@ app.put('/users/:Username',
 // user to add favorite movies
 
 
-app.post('/users/:Username/movies/:MovieID', (req, res) => {
+app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $push: { FavoriteMovies: req.params.MovieID }
      },
@@ -182,7 +182,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 // user to delete favorite movie
 
 
-app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
        $pull: { FavoriteMovies: req.params.MovieID }
      },
@@ -201,7 +201,7 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
 // delete user from Users Collection
 
 
-app.delete('/users/:Username', (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOneAndRemove({ Username: req.params.Username })
       .then((user) => {
         if (!user) {
@@ -228,7 +228,7 @@ app.get('/', (req, res) => {
 // Create a movie and add it to the Movies Collection
 
 
-app.post('/movies',  (req, res) => {
+app.post('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ Title: req.body.Title })
       .then((movie) => {
         if (movie) {
@@ -259,7 +259,7 @@ app.post('/movies',  (req, res) => {
 
 //   Add an actor to a movie and Update to Movies Collection
 
-app.put('/movies/:Title', (req, res) => {
+app.put('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOneAndUpdate({ Title: req.params.Title }, { $push:
       {
         Actors: req.body.Actors
@@ -294,7 +294,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
 // delete a movie from the Movies Collection
 
 
-app.delete('/movies/:Title', (req, res) => {
+app.delete('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOneAndRemove({ Title: req.params.Title })
       .then((movie) => {
         if (!movie) {
@@ -313,7 +313,7 @@ app.delete('/movies/:Title', (req, res) => {
 // get movie by title from the Movies Collection 
 
 
-app.get('/movies/:Title', (req, res) => {
+app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ Title: req.params.Title })
       .then((movie) => {
         res.json(movie);
@@ -328,7 +328,7 @@ app.get('/movies/:Title', (req, res) => {
 // get genre info from the Movies Collection
 
 
-app.get('/movies/genre/:Name', (req, res) => {
+app.get('/movies/genre/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ 'Genre.Name': req.params.Name}) // Find one movie with the genre by genre name
       .then((movie) => {
         if(movie){ // If a movie with the genre was found, return json of genre info, else throw error
@@ -346,7 +346,7 @@ app.get('/movies/genre/:Name', (req, res) => {
 // get director info from the Movies Collection
 
 
-app.get('/movies/director/:Name', (req, res) => {
+app.get('/movies/director/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ 'Director.Name': req.params.Name}) // Find one movie with the genre by genre name
       .then((movie) => {
         if(movie){ // If a movie with the genre was found, return json of genre info, else throw error
