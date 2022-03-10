@@ -24,11 +24,10 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
-// mongoose.connect('mongodb://localhost:27017/test', { 
+// mongoose.connect('mongodb+srv://mind28:Black-Mamba24@movie-app.xixo1.mongodb.net/movie-app?retryWrites=true&w=majority', { 
 //     useNewUrlParser: true, useUnifiedTopology: true });
 
-    mongoose.connect('process.env.CONNECTION_URI', { 
-      useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(morgan('common'));
 app.use(express.static('public'));
@@ -57,18 +56,18 @@ app.post('/users',
     return res.status(422).json({errors: errors.array()});
   }
 
-  let hashedPassword = Users.hashPassword(req.body.Password); // Create hashedPassword from given Password
+  let hashedPassword = Users.hashPassword(req.body.Password); 
 
   // Create new user
   Users.findOne({Username : req.body.Username})
     .then((user) => {
-      if(user) { // If the same username already exists, throw an error
+      if(user) { 
         return res.status(400).send('User with the Username ' + req.body.Username + ' already exists!')
-      } else { // If the username is unique, create a new user with the given parameters from the request body
+      } else { 
         Users
           .create({
             Username: req.body.Username,
-            Password: hashedPassword, // Store only hashed password
+            Password: hashedPassword, 
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
@@ -307,9 +306,9 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
 
 
 app.get('/movies/genre/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Movies.findOne({ 'Genre.Name': req.params.Name}) // Find one movie with the genre by genre name
+    Movies.findOne({ 'Genre.Name': req.params.Name}) 
       .then((movie) => {
-        if(movie){ // If a movie with the genre was found, return json of genre info, else throw error
+        if(movie){ 
           res.status(200).json(movie.Genre);
         } else {
           res.status(400).send('Genre not found');
@@ -325,9 +324,9 @@ app.get('/movies/genre/:Name', passport.authenticate('jwt', { session: false }),
 
 
 app.get('/movies/director/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Movies.findOne({ 'Director.Name': req.params.Name}) // Find one movie with the genre by genre name
+    Movies.findOne({ 'Director.Name': req.params.Name}) 
       .then((movie) => {
-        if(movie){ // If a movie with the genre was found, return json of genre info, else throw error
+        if(movie){ 
           res.status(200).json(movie.Director);
         } else {
           res.status(400).send('Genre not found');
