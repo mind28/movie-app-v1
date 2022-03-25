@@ -259,7 +259,7 @@ app.post('/movies', passport.authenticate('jwt', { session: false }), (req, res)
 
 //   Add an actor to a movie and Update to Movies Collection
 
-app.put('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/movies/:Title', { session: false }), (req, res) => {
     Movies.findOneAndUpdate({ Title: req.params.Title }, { $push:
       {
         Actors: req.body.Actors
