@@ -259,7 +259,7 @@ app.post('/movies', passport.authenticate('jwt', { session: false }), (req, res)
 
 //   Add an actor to a movie and Update to Movies Collection
 
-app.put('/movies/:Title', { session: false }), (req, res) => {
+app.put('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOneAndUpdate({ Title: req.params.Title }, { $push:
       {
         Actors: req.body.Actors
@@ -313,7 +313,7 @@ app.delete('/movies/:Title', passport.authenticate('jwt', { session: false }), (
 // get movie by title from the Movies Collection 
 
 
-app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies/:Title', (req, res) => {
     Movies.findOne({ Title: req.params.Title })
       .then((movie) => {
         res.json(movie);
