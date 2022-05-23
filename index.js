@@ -2,6 +2,8 @@
 
 const express = require('express');
 const app = express();
+const colors = require('colors')
+const dotenv = require('dotenv').config()
 
 const morgan = require('morgan'),
     bodyParser = require('body-parser'),
@@ -25,10 +27,14 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
+const connectDB = require('./config/db')
+
+connectDB()
+
 // mongoose.connect('mongodb://localhost:27017/test', { 
 //     useNewUrlParser: true, useUnifiedTopology: true });
 
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // mongoose.connect('mongodb+srv://mind28:Black-Mamba24@movie-app.xixo1.mongodb.net/movie-app?retryWrites=true&w=majority', { 
     // useNewUrlParser: true, useUnifiedTopology: true });
