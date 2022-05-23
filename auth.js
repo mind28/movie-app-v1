@@ -1,48 +1,35 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const jwtSecret = 'Jump_Man_23';
 
-let movieSchema = mongoose.Schema({
-    Title: {type: String, required: true},
-    Description: {type: String, required: true},
-    Genre: {
-      Name: String,
-      Description: String
-    },
-    Director: {
-      Name: String,
-      Bio: String,
-      Birth: String,
-      Death: String,
-    },
-    Actors: [{
-        Name: String,
-        Bio: String,
-        Birth: String,
-        Death: String,
-        Movies: [String]
-    }],
-    ImagePath: String,
-    Featured: Boolean
-  });
-  
-  let userSchema = mongoose.Schema({
-    username: {type: String, required: true},
-    password: {type: String, required: true},
-    email: {type: String, required: true},
-    birthday: Date,
-    favoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'movie' }]
-  });
+const jwt = require('jsonwebtoken'),
+    passport = require('passport');
 
-  userSchema.statics.hashPassword = (password) => {
-    return bcrypt.hashSync(password, 10);
-  };
-  
-  userSchema.methods.validatePassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
-  };  
-  
-  let Movie = mongoose.model('movie', movieSchema);
-  let User = mongoose.model('user', userSchema);
-  
-  module.exports.Movie = Movie;
-  module.exports.User = User;
+require('./passport');
+
+
+let generateJWTToken = (user) =>{
+    return jwt.sign(user, jwtSecret, {
+        subject: user.Username,
+        expiresIn: '7d',
+        algorithm: 'HS256'
+    });
+}
+
+module.exports = (router) => {
+    router.post('/login', (req, res) => {
+        passport.authenticate('local', {session: false}, (error, user, info) => {
+            if (error || !user) {
+                return res.status(400).json({
+                    message: 'Something is not right',
+                    user: user
+                });
+            }
+            req.login(user, { session: false }, (error) =>{
+                if (error) {
+                    res.send(error);
+                }
+                let token = generateJWTToken(user.toJSON());
+                return res.json({ user, token});
+            });
+        })(req, res);
+    });
+}
