@@ -311,6 +311,17 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false }), (r
 });
 });
 
+app.get('/actors/:name',  (req, res) => {
+  Movies.findOne({'Actors.Name': req.params.name })
+  .then((movie) => {
+    res.json(movie.Actors)
+})
+.catch((err)=>{
+  console.error(err);
+  res.status(500).send('Error: ' + err);
+});
+});
+
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
   console.log('Listening on Port ' + port);
